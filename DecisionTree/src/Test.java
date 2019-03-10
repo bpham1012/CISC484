@@ -8,6 +8,40 @@ public class Test {
 		//return new Dtree(testtree,0);
 	}
 	
+	public double calcAccuracy(DTree dPrime, String csvFile){
+		UnitSet data = new UnitSet(csvFile);
+		int correctInst = 0; //number of correctly classified instances
+		Node root = dPrime;
+		Node currNode; //current Node we're on
+
+		for (List row : data){
+			currNode = root;
+			int attribute = root.attriId;
+			int actualClass = row.get(row.size() - 1);
+			int predClass = -1; //predicted class
+			while(currNode.left != null && currNode.right != null){
+				if(row.get(attribute) == 1){
+					currNode = currNode.left;
+				}
+				else{ // == 0
+					currNode = currNode.right;
+				}
+			}//end while
+
+			predClass = currNode.classType //assign predicted class to the instance
+			if (actualClass == predClass){
+				correctInst++;
+			}
+
+		} // end for		
+
+
+
+		
+		//return accuracy = percentage of correctly classified examples
+
+		
+	}
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
