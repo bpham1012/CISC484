@@ -5,14 +5,7 @@ import javax.lang.model.util.ElementScanner6;
 
 public class Test {
 
-	int l;
-	int k;
-	String trainingSetLocation;
-	String validationSetLocation;
-	String testSet;
-	boolean toPrint;
-	DTree d;
-	UnitSet testtree;
+	
 	
 	public static void postPruning(int l, int k){
 		/* code here */
@@ -20,9 +13,18 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws IOException {
+		int l;
+		int k;
+		String trainingSetLocation;
+		String validationSetLocation;
+		String testSet;
+		boolean toPrint;
+		DTree d;
+		UnitSet testTree;
+		
 		// TODO Auto-generated method stub
 
-		//String csvFile = "/Users/Rachel/Desktop/DT/training_set2.csv";
+		String csvFile = "/Users/Rachel/Desktop/DT/training_set2.csv";
 		
 		/* user input */
 		if(args.length != 6){
@@ -42,13 +44,13 @@ public class Test {
 		else if(args[5] == "no")
 			toPrint = false;
 		else{
-			System.out.println('Please enter "yes" or "no" for toPrint value');
+			System.out.println("Please enter 'yes' or 'no' for toPrint value");
 			System.exit(0);
 		}
 		
 		testTree = new UnitSet(csvFile);
 		
-		DTree d = new DTree(testTree, 0); // Original tree
+		d = new DTree(testTree, 0); // Original tree
 		
 		/* algorithm call here */		
 		postPruning(l, k);
