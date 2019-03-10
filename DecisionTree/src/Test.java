@@ -7,14 +7,7 @@ import java.util.Random;
 
 public class Test {
 
-	int l;
-	int k;
-	String trainingSetLocation;
-	String validationSetLocation;
-	String testSet;
-	boolean toPrint;
-	DTree d;
-	UnitSet testtree;
+	
 	
 	public static DTree postPruning(int l, int k){
 
@@ -45,10 +38,53 @@ public class Test {
 		return dBest;
 	}
 	
+	public double calcAccuracy(DTree dPrime, String csvFile){
+		UnitSet data = new UnitSet(csvFile);
+		int correctInst = 0; //number of correctly classified instances
+		Node root = dPrime;
+		Node currNode; //current Node we're on
+
+		for (List row : data){
+			currNode = root;
+			int attribute = root.attriId;
+			int actualClass = row.get(row.size() - 1);
+			int predClass = -1; //predicted class
+			while(currNode.left != null && currNode.right != null){
+				if(row.get(attribute) == 1 && currNode.left != null){
+					currNode = currNode.left;
+				}
+				elif(row.get(attribute) == 0 && currNode.right != null){ // == 0
+					currNode = currNode.right;
+				}
+			}//end while
+
+			predClass = currNode.classType //assign predicted class to the instance
+			if (actualClass == predClass){
+				correctInst++;
+			}
+
+		} // end for		
+
+
+
+		
+		//return accuracy = percentage of correctly classified examples
+
+		
+	}
 	public static void main(String[] args) throws IOException {
+		int l;
+		int k;
+		String trainingSetLocation;
+		String validationSetLocation;
+		String testSet;
+		boolean toPrint;
+		DTree d;
+		UnitSet testTree;
+		
 		// TODO Auto-generated method stub
 
-		//String csvFile = "/Users/Rachel/Desktop/DT/training_set2.csv";
+		String csvFile = "/Users/Rachel/Desktop/DT/training_set2.csv";
 		
 		/* user input */
 		if(args.length != 6){
@@ -68,13 +104,13 @@ public class Test {
 		else if(args[5] == "no")
 			toPrint = false;
 		else{
-			System.out.println('Please enter "yes" or "no" for toPrint value');
+			System.out.println("Please enter 'yes' or 'no' for toPrint value");
 			System.exit(0);
 		}
 		
 		testTree = new UnitSet(csvFile);
 		
-		DTree d = new DTree(testTree, 0); // Original tree
+		d = new DTree(testTree, 0); // Original tree
 		
 		/* algorithm call here */		
 		postPruning(l, k);
