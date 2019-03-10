@@ -3,6 +3,8 @@ import java.lang.Integer;
 
 import javax.lang.model.util.ElementScanner6;
 
+import java.util.Random;
+
 public class Test {
 
 	int l;
@@ -14,9 +16,33 @@ public class Test {
 	DTree d;
 	UnitSet testtree;
 	
-	public static void postPruning(int l, int k){
-		/* code here */
-		//return new Dtree(testtree,0);
+	public static DTree postPruning(int l, int k){
+
+		DTree d = new DTree(testtree,0);
+		DTree dBest = d;
+		int dBestAcc;
+
+		for (int i = 1; i <= l; i++) {
+			DTree dPrime = d;
+			Random rand = new Random();
+			int m = rand.nextInt(k) + 1;
+			
+			for (int j = 1; j <= m; j++) {
+				int N = dPrime.N; 
+				//order the nodes in D' from 1 to N 
+				int p = rand.nextInt(N) + 1;
+				//replace subtree rooted at P in D' by a leaf node
+				//assign majority class of the data subset at P to the leaf node
+			}
+			
+			//evaluate the accuracy of D' on validation set
+			int dPrimeAcc;
+			if (dPrimeAcc > dBestAcc) {
+				dBest = dPrime;
+				dBestAcc = dPrimeAcc;
+			}
+		}
+		return dBest;
 	}
 	
 	public static void main(String[] args) throws IOException {
