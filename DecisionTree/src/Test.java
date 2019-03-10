@@ -24,10 +24,10 @@ public class Test {
 			int actualClass = row.get(row.size() - 1);
 			int predClass = -1; //predicted class
 			while(currNode.left != null && currNode.right != null){
-				if(row.get(attribute) == 1){
+				if(row.get(attribute) == 1 && currNode.left != null){
 					currNode = currNode.left;
 				}
-				else{ // == 0
+				elif(row.get(attribute) == 0 && currNode.right != null){ // == 0
 					currNode = currNode.right;
 				}
 			}//end while
