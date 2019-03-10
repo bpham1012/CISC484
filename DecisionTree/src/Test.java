@@ -22,7 +22,8 @@ public class Test {
 			
 			for (int j = 1; j <= m; j++) {
 				int N = dPrime.N; 
-				//order the nodes in D' from 1 to N 
+				//order the nodes in D' from 1 to N
+				Node[] treeAsList = convertToList(n); 
 				int p = rand.nextInt(N) + 1;
 				//replace subtree rooted at P in D' by a leaf node
 				//assign majority class of the data subset at P to the leaf node
@@ -36,6 +37,21 @@ public class Test {
 			}
 		}
 		return dBest;
+	}
+	
+	private static List<Node> convertToList(Node n) {
+		List<Node> result = new ArrayList<>();
+		if (n.left != null) {
+			result.addAll(convertToList(n.left);
+		}
+	
+		if (n.right != null) {
+			result.addAll(convertToList(n.right()));
+		}
+	
+		result.add(n);
+	
+		return result;
 	}
 	
 	public double calcAccuracy(DTree dPrime, String csvFile){
