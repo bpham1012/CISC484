@@ -4,7 +4,9 @@ public class Node {
 	int depth;
 	int attriId;
 	int classType = -1;
+	int position;
 	Node left, right;
+
 	
 	public Node(int item, int depth) {
 		

@@ -48,10 +48,10 @@ public class Test {
 		return dBest;
 	}
 
-	private static List<Node> calculatePath(Node start, Node finish){
+	/* private static List<Node> calculatePath(Node start, Node finish){
 		List<Node> result = new ArrayList<>();
 
-	}
+	} */
 	
 	public List<Node> convertToList(Node n) {
 		List<Node> result = new ArrayList<>();
@@ -68,6 +68,10 @@ public class Test {
 		return result;
 	}
 
+	public void setPosition(Node rootNode, int num){
+		
+	}
+	
 	public boolean getPath(Node rootNode, Node target, ArrayList<Node> path ){
 		if( rootNode==null)
 			return false;
@@ -151,6 +155,11 @@ public class Test {
 			System.exit(0);
 		}
 		
+		String csvFile = "/Users/Rachel/CISC484/data_sets1/training_set2.csv";
+		UnitSet testTree = new UnitSet(csvFile);
+		DTree ourTest = new DTree(testTree, 0);
+
+		print(getPath(testTree.root, ))
 		
 		//d = new DTree(testTree, 0); // Original tree
 		
