@@ -4,7 +4,8 @@ public class Node {
 	int depth;
 	int attriId;
 	int classType = -1;
-	int position;
+	boolean isLeft; //1 if it's left child, 0 if it's right child
+	int orderNum = -1;
 	Node left, right;
 
 	
@@ -23,10 +24,12 @@ public class Node {
 	
 	public void setRight(Node rnode) {
 		this.right = rnode;
+		rnode.isLeft = false;
 	}
 	
 	public void setLeft(Node lnode) {
 		this.left = lnode;
+		lnode.isLeft = true;
 	}
 	
 	public String toString() {

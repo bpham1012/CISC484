@@ -24,10 +24,11 @@ public class Test {
 			DTree dPrime = d;
 			Random rand = new Random();
 			int m = rand.nextInt(k) + 1;
+			setPosition(dPrime.root, 0);
 			
 			for (int j = 1; j <= m; j++) {
 				int N = dPrime.N; 
-				Node[] treeAsList = convertToList(n); 
+				//Node[] treeAsList = convertToList(n); 
 				int p = rand.nextInt(N) + 1;
 				//replace subtree rooted at P in D' by a leaf node
 				//traverse from root to node at P to get path to P, then check instances in unitset
@@ -68,8 +69,16 @@ public class Test {
 		return result;
 	}
 
-	public void setPosition(Node rootNode, int num){
-		
+	public static void setPosition(Node root, int num){
+		//check to see if children are null
+		root.orderNum = num;
+		if (root.left != null){
+			setPosition(root.left, num + 1);
+		}
+			//System.out.println(root.data);
+		if (root.right != null){
+			setPosition(root.right, num + 1);
+		}
 	}
 	
 	public boolean getPath(Node rootNode, Node target, ArrayList<Node> path ){
