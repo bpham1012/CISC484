@@ -29,33 +29,39 @@ public class Node {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		
-		for(int i = 0; i < depth; i++) {
-			sb.append("| ");
-		}
-		
-		
-		sb.append("Node:{");
-		if (this.attriId >= 0)
-		sb.append(Util.list.get(this.attriId));
-		sb.append(":");
-		if (classType >= 0)
-			sb.append(this.classType);
-		sb.append("}\n");
-		if (this.left != null)
-		{
-			sb.append(this.left);
-		}
-		if (this.right != null) 
-		{
 
-			sb.append(this.right);
+		// Print the left branch header
+		for (int i = 0; i < depth; i++)
+			sb.append("| ");
+		sb.append(Util.list.get(attriId));
+		sb.append(" = 0 : ");
+		if (this.left != null) {
+			if (this.left.classType >= 0) {
+			// If left is a leaf node add class type
+				sb.append(this.left.classType);
+				sb.append("\n");
+			} 
+			else {
+				sb.append("\n");
+				sb.append(this.left);
+			}
 		}
-	
-		
-		
+		// Print the right branch header
+		for (int i = 0; i < depth; i++)
+			sb.append("| ");
+		sb.append(Util.list.get(attriId));
+		sb.append(" = 1 : ");
+		if (this.right != null) {
+			if (this.right.classType >= 0) {
+			// If right is a leaf node add class type
+				sb.append(this.right.classType);
+				sb.append("\n");
+			} else {
+				sb.append("\n");
+				sb.append(this.right);
+			}
+		}
 		return sb.toString();
 	}
-	
 
 }
