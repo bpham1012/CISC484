@@ -77,7 +77,7 @@ public class Test {
 	public double calcAccuracy(DTree dPrime, String csvFile){
 		UnitSet data = new UnitSet(csvFile);
 		int correctInst = 0; //number of correctly classified instances
-		Node root = dPrime;
+		Node root = dPrime.root;
 		Node currNode; //current Node we're on
 
 		for (List row : data){
@@ -85,7 +85,7 @@ public class Test {
 			int attribute = root.attriId;
 			int actualClass = row.get(row.size() - 1);
 			int predClass = -1; //predicted class
-			while(currNode.left != null && currNode.right != null){
+			while(currNode.left != null || currNode.right != null){
 				if(row.get(attribute) == 1 && currNode.left != null){
 					currNode = currNode.left;
 				}
@@ -100,11 +100,8 @@ public class Test {
 			}
 
 		} // end for		
-
-
-
-		
-		//return accuracy = percentage of correctly classified examples
+	
+		double accuracy = correctInst/(data.size());
 
 		
 	}
