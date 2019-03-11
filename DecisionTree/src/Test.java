@@ -4,6 +4,8 @@ import java.lang.Integer;
 import javax.lang.model.util.ElementScanner6;
 
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Test {
 
@@ -11,7 +13,10 @@ public class Test {
 	
 	public static DTree postPruning(int l, int k){
 
-		DTree d = new DTree(testtree,0);
+		String csvFile = "/Users/Rachel/Desktop/DT/training_set2.csv";
+		UnitSet testTree = new UnitSet(csvFile);
+
+		DTree d = new DTree(testTree,0);
 		DTree dBest = d;
 		int dBestAcc;
 
@@ -27,6 +32,7 @@ public class Test {
 				int p = rand.nextInt(N) + 1;
 				//replace subtree rooted at P in D' by a leaf node
 				//assign majority class of the data subset at P to the leaf node
+					//For instance, if the subset of the data at P contains 10 examples with class=0 and 15 examples with class=1, replace P by class=1
 			}
 			
 			//evaluate the accuracy of D' on validation set
@@ -37,6 +43,11 @@ public class Test {
 			}
 		}
 		return dBest;
+	}
+
+	private static List<Node> calculatePath(Node start, Node finish){
+		List<Node> result = new ArrayList<>();
+
 	}
 	
 	private static List<Node> convertToList(Node n) {
@@ -95,12 +106,11 @@ public class Test {
 		String validationSetLocation;
 		String testSet;
 		boolean toPrint;
-		DTree d;
-		UnitSet testTree;
+		//DTree d;
+		//UnitSet testTree;
 		
 		// TODO Auto-generated method stub
 
-		String csvFile = "/Users/Rachel/Desktop/DT/training_set2.csv";
 		
 		/* user input */
 		if(args.length != 6){
@@ -124,16 +134,13 @@ public class Test {
 			System.exit(0);
 		}
 		
-		testTree = new UnitSet(csvFile);
 		
-		d = new DTree(testTree, 0); // Original tree
+		//d = new DTree(testTree, 0); // Original tree
 		
 		/* algorithm call here */		
 		postPruning(l, k);
 		
 		System.out.print(d.root);
-
-		// PRUNING STARTS HERE
 
 	}
 
