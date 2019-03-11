@@ -22,14 +22,17 @@ public class Test {
 			
 			for (int j = 1; j <= m; j++) {
 				int N = dPrime.N; 
-				//order the nodes in D' from 1 to N
 				Node[] treeAsList = convertToList(n); 
 				int p = rand.nextInt(N) + 1;
 				//replace subtree rooted at P in D' by a leaf node
+				//traverse from root to node at P to get path to P, then check instances in unitset
+				Node replace = treeAsList.get(p);
+				int majorClass;
 				//assign majority class of the data subset at P to the leaf node
 			}
 			
 			//evaluate the accuracy of D' on validation set
+
 			int dPrimeAcc;
 			if (dPrimeAcc > dBestAcc) {
 				dBest = dPrime;
@@ -39,7 +42,7 @@ public class Test {
 		return dBest;
 	}
 	
-	private static List<Node> convertToList(Node n) {
+	public List<Node> convertToList(Node n) {
 		List<Node> result = new ArrayList<>();
 		if (n.left != null) {
 			result.addAll(convertToList(n.left);
@@ -52,6 +55,23 @@ public class Test {
 		result.add(n);
 	
 		return result;
+	}
+
+	public boolean getPath(Node rootNode, Node target, ArrayList<Node> path ){
+		if( rootNode==null)
+			return false;
+		if (rootNode==target){
+			path.add(rootNode);
+			return true;
+		}
+		boolean left_check = getPath( rootNode.left,target,path);
+		boolean right_check = getPath( rootNode.right,target,path);
+		if ( left_check || right_check){
+			path.add(rootNode);
+			return true;
+		}
+		return false;
+	
 	}
 	
 	public double calcAccuracy(DTree dPrime, String csvFile){
