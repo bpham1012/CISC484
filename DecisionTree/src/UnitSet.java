@@ -60,7 +60,7 @@ public class UnitSet {
 	}
 
 	
-	public int getBestAttriId() {
+	public int getBestEntroAttriId() {
 		int attriId = -1; //Initialize to -1
 		double entropy = 10000; //Initialize to 10000
 
@@ -241,5 +241,100 @@ public class UnitSet {
 		return new UnitSet(getLeftSet(bestAId));
 
 	}
+	
+	
+	//------------------ Variance part ------------------
+	
+	public double calculateVariance(int attri_position) {
+		double positiveVarianceSide = -1; //CLASS = 1
+		double negativeVarianceSide = -1; //CLASS = 0
+		double totalVariance = -1; // latter half entropy
+		double yesPosiCount = 0; //Attribute = 1, based on CLASS = 1
+		double noPosiCount = 0; //Attribute = 0, based on CLASS = 1
+		double yesNegaCount = 0; //Attribute = 1, based on CLASS = 0
+		double noNegaCount = 0; //Attribute = 0, based on CLASS = 0
+		double totalSize = unitList.size(); // Total Rows
+		
+		
+		
+		//Divide the whole list into 2 after getting a best attribute
+		List<Unit> positiveList = new ArrayList<>(); 
+		List<Unit> negativeList = new ArrayList<>();
+
+		for (Unit x : unitList) {
+			if (x.attriValue.get(attri_position).equals("1")) {
+				positiveList.add(x);
+			} else {
+				negativeList.add(x);
+			}
+		}
+
+		int PositiveRowCount = positiveList.size();
+		// System.out.println(PositiveRowCount);
+		int NegativeRowCount = negativeList.size();
+		// System.out.println(NegativeRowCount);
+		
+		
+
+		for (Unit x : positiveList) {
+			int length = x.attriValue.size();
+			if (x.attriValue.get(length - 1).equals("1")) {
+				yesPosiCount++;
+				// System.out.println("PROCESS YES: " + yesPosiCount);
+			} else {
+				noPosiCount++;
+				// System.out.println("PROCESS NO: " + noPosiCount);
+			}
+		}
+		
+		positiveVarianceSide = yesPosiCount / PositiveRowCount * noPosiCount/PositiveRowCount;
+				
+
+		for (Unit x : negativeList) {
+			int length = x.attriValue.size();
+			if (x.attriValue.get(length - 1).equals("1")) {
+				yesNegaCount++;
+			} else {
+				noNegaCount++;
+			}
+		}
+		
+		negativeVarianceSide = yesNegaCount / NegativeRowCount * noNegaCount / NegativeRowCount;
+
+		totalVariance = (yesPosiCount + noPosiCount) / totalSize * positiveVarianceSide
+				+ (yesNegaCount + noNegaCount) / totalSize * negativeVarianceSide;
+
+		if (totalVariance <= 0)
+			totalVariance = 0;
+
+		if (0 <= totalVariance && 1.0 >= totalVariance && (yesPosiCount + yesNegaCount != 0)
+				&& (noPosiCount + noNegaCount) != 0)
+			return totalVariance;
+		else
+			return 10.0;
+	}
+	
+	public int getBestVarianceAttriId() {
+		int attriId = -1; //Initialize to -1
+		double varian = 10000; //Initialize to 10000
+
+		int size = unitList.get(0).attriValue.size() - 1; // all attributes' position in the list
+
+		for (int i = 0; i < size; i++) {
+			double tempVarian = calculateVariance(i);
+			if (tempVarian < varian) {
+				varian = tempVarian;
+				attriId = i;
+			}
+		}
+
+		if (varian > 1.0) {
+			return -1;
+		}
+		return attriId;
+	}
+	
+	
+	
 
 }

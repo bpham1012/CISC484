@@ -82,6 +82,7 @@ public class Test {
 		} // end for		
 	
 		double accuracy = correctInst/(data.size());
+		return accuracy;
 
 		
 	}
@@ -121,16 +122,28 @@ public class Test {
 			System.exit(0);
 		}
 		
-		testTree = new UnitSet(csvFile);
-		
-		d = new DTree(testTree, 0); // Original tree
 		
 		/* algorithm call here */		
 		postPruning(l, k);
 		
-		System.out.print(d.root);
+		//System.out.print(d.root);
 
 		// PRUNING STARTS HERE
+//----------------------------------------------------
+		System.out.println("Entropy Tree");
+		
+		//Generate tree by Entropy
+		DTree tree = new DTree(testTree, 0);
+		System.out.print(tree.root);
+		
+		System.out.println( "-----------------------------------");
+		
+		
+		
+		System.out.println("Variance Tree");
+		//Generate tree by Variance
+		VTree vtree = new VTree(testTree, 0);
+		System.out.print(vtree.root);
 
 	}
 
