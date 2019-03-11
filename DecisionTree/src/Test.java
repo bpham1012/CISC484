@@ -3,13 +3,55 @@ import java.lang.Integer;
 
 import javax.lang.model.util.ElementScanner6;
 
+import java.util.Random;
+
 public class Test {
 
 	
 	
-	public static void postPruning(int l, int k){
-		/* code here */
-		//return new Dtree(testtree,0);
+	public static DTree postPruning(int l, int k){
+
+		DTree d = new DTree(testtree,0);
+		DTree dBest = d;
+		int dBestAcc;
+
+		for (int i = 1; i <= l; i++) {
+			DTree dPrime = d;
+			Random rand = new Random();
+			int m = rand.nextInt(k) + 1;
+			
+			for (int j = 1; j <= m; j++) {
+				int N = dPrime.N; 
+				//order the nodes in D' from 1 to N
+				Node[] treeAsList = convertToList(n); 
+				int p = rand.nextInt(N) + 1;
+				//replace subtree rooted at P in D' by a leaf node
+				//assign majority class of the data subset at P to the leaf node
+			}
+			
+			//evaluate the accuracy of D' on validation set
+			int dPrimeAcc;
+			if (dPrimeAcc > dBestAcc) {
+				dBest = dPrime;
+				dBestAcc = dPrimeAcc;
+			}
+		}
+		return dBest;
+	}
+	
+	private static List<Node> convertToList(Node n) {
+		List<Node> result = new ArrayList<>();
+		if (n.left != null) {
+			result.addAll(convertToList(n.left);
+		}
+	
+		if (n.right != null) {
+			result.addAll(convertToList(n.right()));
+		}
+	
+		result.add(n);
+	
+		return result;
 	}
 	
 	public double calcAccuracy(DTree dPrime, String csvFile){

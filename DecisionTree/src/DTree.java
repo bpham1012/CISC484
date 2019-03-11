@@ -1,6 +1,7 @@
 
 public class DTree {
 	Node root = null;
+	int N = 0;
 	
 	//Input:	UnitSet
 	//			Depth --- to count how many "| " should add.
@@ -21,7 +22,9 @@ public class DTree {
 		} else {
 			// recursive call left and right node
 			current.setLeft(genNode(uset.getLeft(attriId), depth + 1));
+			N++;
 			current.setRight(genNode(uset.getRight(attriId), depth + 1));
+			N++;
 		}
 		return current;
 	}
